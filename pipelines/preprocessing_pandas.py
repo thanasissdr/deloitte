@@ -24,11 +24,6 @@ def extract_weekday_timestamp(timestamp: Timestamp) -> int:
     return preprocessing_base.extract_weekday_timestamp(timestamp)
 
 
-def frequency_encoding(x: pd.Series, normalize: bool = True):
-    tmp = x.value_counts(normalize=normalize)
-    return x.map(tmp).values.reshape(-1, 1)
-
-
 @apply_function_to_column_elementwise
 def is_weekend(weekday: int, **kwargs):
     return preprocessing_base.is_weekend(weekday, **kwargs)
