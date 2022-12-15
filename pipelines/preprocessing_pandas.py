@@ -34,12 +34,12 @@ def create_datetime(row, **kwargs):
     return preprocessing_base.create_datetime(row, **kwargs)
 
 
-@apply_function_to_row
+@apply_function_to_column_elementwise
 def create_sin(x: int, **kwargs):
     return preprocessing_base.create_sin(x, **kwargs)
 
 
-@apply_function_to_row
+@apply_function_to_column_elementwise
 def create_cos(x: int, **kwargs):
     return preprocessing_base.create_cos(x, **kwargs)
 
@@ -47,3 +47,13 @@ def create_cos(x: int, **kwargs):
 @apply_function_to_column_elementwise
 def remove_dollar_sign(x):
     return preprocessing_base.remove_dollar_sign(x)
+
+
+@apply_function_to_row
+def create_datetime(row):
+    return preprocessing_base.create_datetime(row)
+
+
+@apply_function_to_column_elementwise
+def to_pd_datetime(x: np.datetime64):
+    return pd.Timestamp(x)

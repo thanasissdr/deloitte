@@ -17,10 +17,10 @@ def filter_levels(series: pd.Series, min_threshold: float = 0.9) -> pd.Index:
     Returns:
         pd.Index with the levels to keep
     """
-    normalized_counts = series.value_counts(normalize=True).cumsum()
+    normalized_cumulative_counts = series.value_counts(normalize=True).cumsum()
 
-    mask = normalized_counts <= min_threshold
-    return normalized_counts[mask].index
+    mask = normalized_cumulative_counts <= min_threshold
+    return normalized_cumulative_counts[mask].index
 
 
 def substitute_levels(
@@ -30,7 +30,7 @@ def substitute_levels(
 ) -> pd.Series:
     """
     Args:
-        series: pd.Series with categorical variables
+        series: pd.Series which represents a categorical variable
         levels_to_keep: list-like object with levels to keep
     Returns:
         series with levels_to_keep and/or substitute value
@@ -62,13 +62,13 @@ def extract_weekday_timestamp(
 
 
 def extract_month_datetime_timestamp(
-    date: pd.core.indexes.accessors.DatetimeProperties,
+    date: pd.Timestamp,
 ) -> int:
     return date.month
 
 
 def extract_year_datetime_timestamp(
-    date: pd.core.indexes.accessors.DatetimeProperties,
+    date: pd.Timestamp,
 ) -> int:
     return date.year
 
@@ -81,7 +81,7 @@ def is_weekend(weekday: int, weekend_days: List[int] = [5, 6]) -> int:
 
 
 def create_datetime(row):
-    return dt.datetime(int(row[0]), int(row[1]), int(row[2]))
+    return pd.Timestamp(int(row[0]), int(row[1]), int(row[2]))
 
 
 def remove_dollar_sign(x: str) -> float:
