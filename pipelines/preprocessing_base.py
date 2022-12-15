@@ -74,10 +74,7 @@ def extract_year_datetime_timestamp(
 
 
 def is_weekend(weekday: int, weekend_days: List[int] = [5, 6]) -> int:
-    if weekday in weekend_days:
-        return 1
-    else:
-        return 0
+    return int(weekday in weekend_days)
 
 
 def create_datetime(row):
