@@ -12,11 +12,10 @@ def apply_function_to_column_elementwise(f):
             val = data.applymap(f, **kwargs).values
         elif isinstance(data, pd.Series):
             val = data.apply(f, **kwargs).values.reshape(-1, 1)
-        elif isinstance(
-            data,
-            (np.ndarray),
-        ):
-            val = np.array(list(map(f, data.flatten()))).reshape(-1, 1)
+        elif isinstance(data, np.ndarray):
+            val = np.array(list(map(lambda x: f(x, **kwargs), data.flatten()))).reshape(
+                -1, 1
+            )
         else:
             raise ValueError(f"{type(data)} is not supported.")
         return val
@@ -30,7 +29,9 @@ def apply_function_to_row(f):
         if isinstance(data, pd.DataFrame):
             return data.apply(f, axis=1, **kwargs).values.reshape(-1, 1)
         elif isinstance(data, np.ndarray):
-            return np.array(list(map(f, data.flatten()))).reshape(-1, 1)
+            return  np.array(list(map(lambda x: f(x, **kwargs), data.flatten()))).reshape(
+                -1, 1
+            )
         else:
             raise ValueError(f"{type(data)} is not supported.")
 
