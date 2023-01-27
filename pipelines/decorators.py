@@ -25,7 +25,7 @@ def apply_function_to_column_elementwise(f):
 
 def apply_function_to_row(f):
     @wraps(f)
-    def inner(data: pd.DataFrame, **kwargs):
+    def inner(data: Any, **kwargs):
         if isinstance(data, pd.DataFrame):
             return data.apply(f, axis=1, **kwargs).values.reshape(-1, 1)
         elif isinstance(data, np.ndarray):
