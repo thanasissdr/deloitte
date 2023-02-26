@@ -42,7 +42,6 @@ def substitute_levels(
 def cut_levels(
     series: pd.Series, min_threshold: float = 0.9, substitute_value="other"
 ) -> pd.Series:
-
     levels_to_keep = filter_levels(series, min_threshold)
     series_substituted = substitute_levels(
         series, levels_to_keep, substitute_value=substitute_value
@@ -77,8 +76,8 @@ def is_weekend(weekday: int, weekend_days: List[int] = [5, 6]) -> int:
     return int(weekday in weekend_days)
 
 
-def create_datetime(row):
-    return pd.Timestamp(int(row[0]), int(row[1]), int(row[2]))
+def create_datetime(year, month, day):
+    return pd.Timestamp(int(year), int(month), int(day))
 
 
 def remove_dollar_sign(x: str) -> float:

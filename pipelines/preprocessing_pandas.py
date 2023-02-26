@@ -51,7 +51,7 @@ def remove_dollar_sign(x):
 
 @apply_function_to_row
 def create_datetime(row):
-    return preprocessing_base.create_datetime(row)
+    return preprocessing_base.create_datetime(row[0], row[1], row[2])
 
 
 @apply_function_to_column_elementwise
