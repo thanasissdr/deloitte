@@ -26,10 +26,12 @@ def apply_function_to_row(f):
     @wraps(f)
     def inner(data: Any, **kwargs):
         if isinstance(data, pd.DataFrame):
-            return data.apply(f, axis=1, **kwargs).values.reshape(-1, 1)
+            val = data.apply(f, axis=1, **kwargs).values.reshape(-1, 1)
         elif isinstance(data, np.ndarray):
-            return np.array(list(map(lambda x: f(x, **kwargs), data))).reshape(-1, 1)
+            val = np.array(list(map(lambda x: f(x, **kwargs), data))).reshape(-1, 1)
         else:
             raise ValueError(f"{type(data)} is not supported.")
+        
+        return val
 
     return inner
